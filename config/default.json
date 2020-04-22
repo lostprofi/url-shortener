@@ -1,0 +1,4 @@
+{
+    "serverPort": 5000,
+    "mongoURI":"mongodb+srv://Oleg123:Oleg123@firstdbproj-oeuot.mongodb.net/test?retryWrites=true&w=majority"
+}
