@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 
-app.use('/', require('./routes/auth'));
+app.use('/auth', require('./routes/auth'));
 app.use('/registration', require('./routes/reg'));
 app.use('/', require('./routes/dashboard'));
 app.use('/', require('./routes/shortener'));
