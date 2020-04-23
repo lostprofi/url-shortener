@@ -5,8 +5,16 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const tokenMdlware = require('../middlewares/tokenMiddleware');
 
 const router = express.Router();
+
+router.get('/', tokenMdlware, (req, res) => {
+  const { user } = req;
+
+  return res.send(user);
+});
+
 
 // @auth route: search email in db and check enter password with password on db
 // if ok return token
@@ -50,8 +58,7 @@ router.post('/',
           throw err;
         }
         res.json({ token });
-      });
-
+      }, { expiresIn: '80d' });
     } catch (err) {
       return res.status(500).send('Server error');
     }

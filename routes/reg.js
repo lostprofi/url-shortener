@@ -29,7 +29,7 @@ async (req, res) => {
     let user = await User.findOne({ email });
 
     if (user) {
-      return res.status(400).json({ errors: ['User already register'] });
+      return res.status(400).json({ errors: [{msg: 'User already register'}] });
     }
 
     user = new User({
@@ -43,7 +43,7 @@ async (req, res) => {
     user.save();
     res.send('User register');
   } catch (err) {
-    return res.status(500).json({ errors: ['Server error'] });
+    return res.status(500).json({ errors: [{msg: 'Server error'}] });
   }
 });
 
