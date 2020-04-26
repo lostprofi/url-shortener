@@ -24,7 +24,6 @@ async (req, res) => {
     name, email, password, links,
   } = req.body;
 
-
   try {
     let user = await User.findOne({ email });
 
