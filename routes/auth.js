@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/', tokenMdlware, (req, res) => {
   const { user } = req;
-
+  
   return res.send(user);
 });
 

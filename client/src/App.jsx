@@ -1,17 +1,37 @@
 import React from 'react';
-import './App.css';
-import { Grid, Typography, AppBar } from '@material-ui/core';
+import {
+  Grid, AppBar, Button, Toolbar,
+} from '@material-ui/core';
 import 'typeface-roboto';
+import { Route, Link } from 'react-router-dom';
+import { toolBarStyles } from './AppStyles';
+import RegForm from './components/RegForm/RegForm';
+import Alerts from './components/Alert/Alert';
 
 function App() {
+  const toolBarClass = toolBarStyles();
+
   return (
-    <Grid container spacing={3}>
+
+    <Grid container spacing={2} justify="center">
+      <Alerts />
+      <AppBar position="static" color="transparent">
+        <Toolbar className={toolBarClass.root}>
+          <Button component={Link} to="/auth">
+            Sign In
+          </Button>
+          <Button component={Link} to="/registration">
+            Sign Up
+          </Button>
+        </Toolbar>
+      </AppBar>
       <Grid item xs={12}>
-        <AppBar position="static">
-          kljl
-        </AppBar>
+        <Route path="/registration">
+          <RegForm />
+        </Route>
       </Grid>
     </Grid>
+
   );
 }
 
