@@ -9,10 +9,15 @@ const tokenMdlware = require('../middlewares/tokenMiddleware');
 
 const router = express.Router();
 
-router.get('/', tokenMdlware, (req, res) => {
-  const { user } = req;
-  
-  return res.send(user);
+// Authorization request
+
+router.get('/', tokenMdlware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: 'Server error' }] });
+  }
 });
 
 

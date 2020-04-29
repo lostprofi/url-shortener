@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Input, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import formStyle from './formStyles';
 import regAction from '../../actions/registration';

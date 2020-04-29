@@ -5,7 +5,8 @@ import {
 import 'typeface-roboto';
 import { Route, Link } from 'react-router-dom';
 import { toolBarStyles } from './AppStyles';
-import RegForm from './components/RegForm/RegForm';
+import RegForm from './components/Forms/RegForm';
+import AuthForm from './components/Forms/AuthForm';
 import Alerts from './components/Alert/Alert';
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
       <Grid item xs={12}>
         <Route path="/registration">
           <RegForm />
+        </Route>
+        <Route path="/auth">
+          <AuthForm />
         </Route>
       </Grid>
     </Grid>

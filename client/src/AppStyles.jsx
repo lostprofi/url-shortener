@@ -1,4 +1,4 @@
-import { makeStyles, rgbToHex } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 
 export const toolBarStyles = makeStyles({
