@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const formStyle = makeStyles({
   root: {
-    width: '50%',
+    width: '100%',
     display: 'flex',
     flexFlow: 'column nowrap',
     margin: '50px auto',

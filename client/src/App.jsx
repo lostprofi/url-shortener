@@ -8,6 +8,7 @@ import { toolBarStyles } from './AppStyles';
 import RegForm from './components/Forms/RegForm';
 import AuthForm from './components/Forms/AuthForm';
 import Alerts from './components/Alert/Alert';
+import Shortener from './components/Shortener/Container/Shortener';
 
 function App() {
   const toolBarClass = toolBarStyles();
@@ -26,12 +27,15 @@ function App() {
           </Button>
         </Toolbar>
       </AppBar>
-      <Grid item xs={12}>
+      <Grid item container xs={8}>
         <Route path="/registration">
           <RegForm />
         </Route>
         <Route path="/auth">
           <AuthForm />
+        </Route>
+        <Route exact path="/">
+          <Shortener />
         </Route>
       </Grid>
     </Grid>
