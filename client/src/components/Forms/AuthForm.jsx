@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import formStyle from './formStyles';
 // action
 import alertAction from '../../actions/alert';
-import authn from '../../actions/auth';
+import { authn } from '../../actions/auth';
 
 const RegForm = (props) => {
   const formClass = formStyle();

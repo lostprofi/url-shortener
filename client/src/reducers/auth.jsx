@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import {
-  AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR,
+  AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR, SIGN_OUT,
 } from '../actions/actionTypes';
 
 
@@ -22,12 +22,18 @@ export default (state = initialState, action) => {
     case AUTHN_ERROR: return { ...state, isAuthenticated: false };
     case AUTHR_SUCCESS:
       return {
-        ...state, isAuthorizated: true, userLoaded: true, user: action.payload,
+        ...state, isAuthenticated: true, isAuthorizated: true, userLoaded: true, user: action.payload,
       };
     case AUTHR_ERROR:
       return {
         ...state, isAuthorizated: false,
       };
+    case SIGN_OUT:
+      Cookies.remove('userToken', '/');
+      return {
+        ...state, isAuthorizated: false, isAuthenticated: true, userLoaded: false, user: null,
+      };
+
     default: return state;
   }
 };

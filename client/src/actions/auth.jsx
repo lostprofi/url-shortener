@@ -3,11 +3,11 @@ import Cookies from 'js-cookie';
 import alert from './alert';
 
 import {
-  AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR,
+  AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR, SIGN_OUT
 } from './actionTypes';
 
 // load user data!!! 
-const authr = () => async (dispatch) => {
+export const authr = () => async (dispatch) => {
   try {
     const userToken = Cookies.get('userToken');
 
@@ -32,21 +32,18 @@ const authr = () => async (dispatch) => {
       throw new Error('User is not authoraized');
     }
   } catch (err) {
-    const { errors } = err.response.data;
 
     dispatch({
       type: AUTHR_ERROR,
     });
 
-    errors.forEach((el) => {
-      dispatch(alert(el.msg, 'error'));
-    });
+    
   }
 };
 
 // user's authentification
 
-const authn = (email, password) => async (dispatch) => {
+export const authn = (email, password) => async (dispatch) => {
   const userData = {
     email,
     password,
@@ -69,7 +66,7 @@ const authn = (email, password) => async (dispatch) => {
       },
     });
 
-    dispatch(authr());
+dispatch(authr());
   } catch (err) {
     const { errors } = err.response.data;
 
@@ -83,4 +80,10 @@ const authn = (email, password) => async (dispatch) => {
   }
 };
 
-export default authn;
+//sign out action
+
+export const signOut = () => (
+  {
+    type: SIGN_OUT,
+  }
+);
