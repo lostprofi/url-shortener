@@ -1,13 +1,15 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import alert from './alert';
+
 import {
   AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR,
 } from './actionTypes';
 
-// authorazation user's and get their information
+// load user data!!! 
 const authr = () => async (dispatch) => {
   try {
-    const { userToken } = localStorage;
+    const userToken = Cookies.get('userToken');
 
     if (userToken) {
       const config = {
@@ -23,7 +25,6 @@ const authr = () => async (dispatch) => {
         type: AUTHR_SUCCESS,
         payload: res.data,
       });
-
     } else {
       dispatch({
         type: AUTHR_ERROR,

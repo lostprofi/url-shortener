@@ -8,11 +8,10 @@ import { toolBarStyles } from './AppStyles';
 import RegForm from './components/Forms/RegForm';
 import AuthForm from './components/Forms/AuthForm';
 import Alerts from './components/Alert/Alert';
-import Shortener from './components/Shortener/Container/Shortener';
+
 
 function App() {
   const toolBarClass = toolBarStyles();
-
   return (
 
     <Grid container spacing={2} justify="center">
@@ -33,9 +32,6 @@ function App() {
         </Route>
         <Route path="/auth">
           <AuthForm />
-        </Route>
-        <Route exact path="/">
-          <Shortener />
         </Route>
       </Grid>
     </Grid>

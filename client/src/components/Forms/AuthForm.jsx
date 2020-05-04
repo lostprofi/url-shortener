@@ -15,7 +15,6 @@ const RegForm = (props) => {
   const { userLoaded } = prop.auth;
 
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: '',
   });

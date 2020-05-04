@@ -4,3 +4,5 @@ export const AUTHN_SUCCESS = 'AUTHN_SUCCESS';
 export const AUTHN_ERROR = 'AUTHN_ERROR';
 export const AUTHR_SUCCESS = 'AUTHR_SUCCESS';
 export const AUTHR_ERROR = 'AUTHR_ERROR';
+export const URL_SHORTENED = 'URL_SHORTENED';
+export const URL_UNSHORTENED = 'URL_UNSHORTENED';

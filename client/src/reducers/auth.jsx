@@ -1,6 +1,8 @@
+import Cookies from 'js-cookie';
 import {
   AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR,
 } from '../actions/actionTypes';
+
 
 const initialState = {
   isAuthenticated: false,
@@ -13,7 +15,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case AUTHN_SUCCESS:
 
-      localStorage.setItem('userToken', action.payload.token);
+      // localStorage.setItem('userToken', action.payload.token);
+      Cookies.set('userToken', `${action.payload.token}`, { expires: 7, path: '/', samesite: 'strict' });
       return { ...state, isAuthenticated: true };
 
     case AUTHN_ERROR: return { ...state, isAuthenticated: false };
