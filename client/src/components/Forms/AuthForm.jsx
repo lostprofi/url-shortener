@@ -7,7 +7,7 @@ import formStyle from './formStyles';
 import alertAction from '../../actions/alert';
 import { authn } from '../../actions/auth';
 
-const RegForm = (props) => {
+const AuthForm = (props) => {
   const formClass = formStyle();
   const prop = props;
 
@@ -62,4 +62,4 @@ const mapStateToProps = (store) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);
