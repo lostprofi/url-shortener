@@ -1,5 +1,4 @@
 const express = require('express');
-
 const router = express.Router();
 const tokenMdlware = require('../middlewares/tokenMiddleware');
 const User = require('../models/User');
