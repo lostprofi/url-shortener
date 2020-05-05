@@ -28,29 +28,28 @@ router.post('/', tokenMdlware, async (req, res) => {
 
     const isExistFullURLObj = links.find((el) => el.fullURL === fullURL);
 
-    if (!isExistFullURLObj) {
-      const enc = Base64.encode(fullURL);
-
-      const date = new Date();
-
-      const [second, hour, day] = [date.getSeconds(), date.getHours(), date.getDay()];
-
-      const shortenURL = `https://msurl/${enc.substr(11, 4)}${day}${hour}${second}`;
-
-      const linksObj = {
-        fullURL,
-        shortenURL,
-      };
-
-      links.push(linksObj);
-
-      await User.findByIdAndUpdate(id, { links }, { new: true });
-
-      return res.send(shortenURL);
+    if (isExistFullURLObj) {
+      return res.status(401).json({ errors: [{ msg: 'This URL is already have shorten version' }] });
     }
 
-    return res.send(isExistFullURLObj.shortenURL);
+    const enc = Base64.encode(fullURL);
 
+    const date = new Date();
+
+    const [second, hour, day] = [date.getSeconds(), date.getHours(), date.getDay()];
+
+    const shortenURL = `https://msurl/${enc.substr(11, 4)}${day}${hour}${second}`;
+
+    const linksObj = {
+      fullURL,
+      shortenURL,
+    };
+
+    links.push(linksObj);
+
+    await User.findByIdAndUpdate(id, { links }, { new: true });
+
+    return res.send(shortenURL);
   } catch (err) {
     return res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }

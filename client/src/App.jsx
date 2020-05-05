@@ -1,24 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Grid, AppBar, Button, Toolbar,
 } from '@material-ui/core';
 import 'typeface-roboto';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 import { toolBarStyles } from './AppStyles';
 import RegForm from './components/Forms/RegForm';
 import AuthForm from './components/Forms/AuthForm';
 import Alerts from './components/Alert/Alert';
 import { signOut as signOutAction } from './actions/auth';
+import Shortener from './components/Shortener/Container/Shortener';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
-function App({ signOut, isAuthorized }) {
+function App({ signOut }) {
   const toolBarClass = toolBarStyles();
 
   const handleSignOut = () => {
     signOut();
   };
+
+  const userToken = Cookies.get('userToken');
 
   return (
 
@@ -26,19 +31,19 @@ function App({ signOut, isAuthorized }) {
       <Alerts />
       <AppBar position="static" color="transparent">
         <Toolbar className={toolBarClass.root}>
-          {!isAuthorized
+          {!userToken
           && (
           <Button component={Link} to="/auth">
             Sign In
           </Button>
           )}
-          {!isAuthorized
+          {!userToken
           && (
           <Button component={Link} to="/registration">
             Sign Up
           </Button>
           )}
-          {isAuthorized
+          {userToken
           && (
           <Button component={Link} to="/auth" onClick={handleSignOut}>
             Sign Out
@@ -53,18 +58,12 @@ function App({ signOut, isAuthorized }) {
         <Route path="/auth">
           <AuthForm />
         </Route>
-        {isAuthorized ? (
-          <Route path="/dashboard" />
-        ) : <Redirect to="auth" /> }
+        <PrivateRoute path="/dashboard" component={Shortener} />
       </Grid>
     </Grid>
 
   );
 }
-
-const mapStateToProps = (store) => ({
-  isAuthorized: store.auth.isAuthorizated,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   signOut() {
@@ -74,7 +73,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 App.propTypes = {
   signOut: PropTypes.func.isRequired,
-  isAuthorized: PropTypes.bool.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
