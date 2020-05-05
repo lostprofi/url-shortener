@@ -5,14 +5,11 @@ import { Redirect } from 'react-router-dom';
 import formStyle from './formStyles';
 // action
 import alertAction from '../../actions/alert';
-import { authn } from '../../actions/auth';
+import { auth } from '../../actions/auth';
+import Cookies from 'js-cookie';
 
-const AuthForm = (props) => {
+const AuthForm = ({ isAuth, authUser }) => {
   const formClass = formStyle();
-  const prop = props;
-
-  const { isAuthorizated } = prop.auth;
-  const { userLoaded } = prop.auth;
 
   const [formData, setFormData] = useState({
     email: '',
@@ -29,19 +26,22 @@ const AuthForm = (props) => {
     const { email } = formData;
     const { password } = formData;
 
-    prop.authnUser(email, password);
+    authUser(email, password);
   };
 
-  if (isAuthorizated && userLoaded) {
-    return <Redirect to="/dashboard" />;
-  }
 
   return (
-    <form noValidate className={formClass.root} onSubmit={handleSubmit}>
-      <TextField id="email" label="Enter your email" type="email" name="email" onChange={handleChange} />
-      <TextField id="password1" label="Enter your password" type="password" name="password" onChange={handleChange} />
-      <Button type="submit" className={formClass.submitBtn} variant="outlined">Submit</Button>
-    </form>
+    <>
+      { isAuth && <Redirect to="/dashboard" />}
+
+      {!isAuth && (
+      <form noValidate className={formClass.root} onSubmit={handleSubmit}>
+        <TextField id="email" label="Enter your email" type="email" name="email" onChange={handleChange} />
+        <TextField id="password1" label="Enter your password" type="password" name="password" onChange={handleChange} />
+        <Button type="submit" className={formClass.submitBtn} variant="outlined">Submit</Button>
+      </form>
+      )}
+    </>
   );
 };
 
@@ -50,15 +50,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(alertAction(msg, alertType));
   },
 
-  authnUser(email, password) {
-    dispatch(authn(email, password));
+  authUser(email, password) {
+    dispatch(auth(email, password));
   },
 
 
 });
 
 const mapStateToProps = (store) => ({
-  auth: store.auth,
+  isAuth: store.userAuth.isAuth,
 });
 
 

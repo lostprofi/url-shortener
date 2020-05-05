@@ -5,7 +5,7 @@ import authReducer from './auth';
 
 const rootReducer = combineReducers({
   alerts: alertReducer,
-  auth: authReducer,
+  userAuth: authReducer,
 });
 
 export default rootReducer;

@@ -5,21 +5,8 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const tokenMdlware = require('../middlewares/tokenMiddleware');
 
 const router = express.Router();
-
-// Authorization request
-
-router.get('/', tokenMdlware, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select('-password');
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ errors: [{ msg: 'Server error' }] });
-  }
-});
-
 
 // @auth route: search email in db and check enter password with password on db
 // if ok return token

@@ -29,7 +29,8 @@ router.post('/', tokenMdlware, async (req, res) => {
     const isExistFullURLObj = links.find((el) => el.fullURL === fullURL);
 
     if (isExistFullURLObj) {
-      return res.status(401).json({ errors: [{ msg: 'This URL is already have shorten version' }] });
+      return res.status(200).send(isExistFullURLObj);
+      
     }
 
     const enc = Base64.encode(fullURL);
@@ -49,7 +50,8 @@ router.post('/', tokenMdlware, async (req, res) => {
 
     await User.findByIdAndUpdate(id, { links }, { new: true });
 
-    return res.send(shortenURL);
+    return res.status(201).send(linksObj);
+    
   } catch (err) {
     return res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }

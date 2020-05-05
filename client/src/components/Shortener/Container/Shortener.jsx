@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import ShortenerP from '../Presentation/ShortenerP';
 import alert from '../../../actions/alert';
+import shortURL from '../../../actions/shortURL';
 
 
-const Shortener = ({ setAlert }) => {
+const Shortener = ({ shortUserURL }) => {
   const [fullURLInputData, setfullURLInputData] = useState({
     fullURL: '',
   });
@@ -17,30 +16,10 @@ const Shortener = ({ setAlert }) => {
   };
 
   const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
+    event.preventDefault();
 
-      const body = {
-        fullURL: fullURLInputData.fullURL,
-      };
-
-      const config = {
-        headers: {
-          'Content-type': 'application/json',
-          'x-auth-token': Cookies.get('userToken'),
-        },
-      };
-
-      const res = await axios.post('/shortener', body, config);
-      setAlert('URL successefully shortened', 'success');
-      
-    } catch (err) {
-      const { errors } = err.response.data;
-
-      errors.forEach((el) => setAlert(el.msg, 'error'));
-    }
+    shortUserURL(fullURLInputData.fullURL);
   };
-
   return (
     <>
       <ShortenerP onChange={handleChange} onSubmit={handleSubmit} />
@@ -50,8 +29,9 @@ const Shortener = ({ setAlert }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setAlert(msg, type) {
-    dispatch(alert(msg, type));
+
+  shortUserURL(fullURL) {
+    dispatch(shortURL(fullURL));
   },
 });
 
