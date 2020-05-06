@@ -33,7 +33,7 @@ const Shortener = ({ setAlert }) => {
 
       const res = await axios.post('/shortener', body, config);
       setAlert('URL successefully shortened', 'success');
-      
+
     } catch (err) {
       const { errors } = err.response.data;
 

@@ -25,6 +25,8 @@ function App({ signOut }) {
 
   const userToken = Cookies.get('userToken');
 
+  console.log(userToken);
+
   return (
 
     <Grid container spacing={2} justify="center">
