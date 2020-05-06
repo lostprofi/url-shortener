@@ -1,9 +1,22 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import alert from './alert';
 
 import {
   AUTH_SUCCESS, AUTH_ERROR, SIGN_OUT,
 } from './actionTypes';
+
+// authorization
+
+export const author = () => (dispatch) => {
+  const userToken = Cookies.get('userToken');
+
+  if (userToken) {
+    dispatch({
+      type: 'AUTHOR_SUCCESS',
+    });
+  }
+};
 
 // user's authentification
 
@@ -29,7 +42,6 @@ export const auth = (email, password) => async (dispatch) => {
         token: res.data.token,
       },
     });
-
   } catch (err) {
     const { errors } = err.response.data;
 

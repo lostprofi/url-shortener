@@ -5,9 +5,13 @@ import { Provider } from 'react-redux';
 import store from './store';
 import './index.css';
 import App from './App';
+import { author } from './actions/auth';
 
 const Index = () => {
-  
+  useEffect(() => {    
+    store.dispatch(author());
+  });
+
   return (
     <React.StrictMode>
       <Provider store={store}>
@@ -18,6 +22,7 @@ const Index = () => {
     </React.StrictMode>
   );
 };
+
 
 ReactDOM.render(
   <Index />,

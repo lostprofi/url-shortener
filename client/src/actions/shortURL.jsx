@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import alert from './alert';
+import { URL_SHORTENED } from './actionTypes';
+
 
 export default (fullURL) => async (dispatch) => {
   try {
@@ -18,6 +20,12 @@ export default (fullURL) => async (dispatch) => {
     };
 
     const res = await axios.post('/shortener', body, config);
+
+    dispatch({
+      type: URL_SHORTENED,
+      payload: res.data,
+    });
+
     console.log(res.data);
   } catch (err) {
     const { errors } = err.response.data;

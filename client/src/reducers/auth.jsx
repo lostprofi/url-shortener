@@ -16,6 +16,9 @@ export default (state = initialState, action) => {
       Cookies.set('userToken', `${action.payload.token}`, { expires: 7, path: '/', samesite: 'strict' });
       return { ...state, isAuth: true };
 
+    case 'AUTHOR_SUCCESS':
+      return { ...state, isAuth: true };
+
     case AUTH_ERROR: return { ...state, isAuth: false };
 
     case SIGN_OUT:
