@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import ShortenerP from '../Presentation/ShortenerP';
-import alert from '../../../actions/alert';
+import shortURL from '../../../actions/shortURL';
+import ShortListP from '../Presentation/ShortListP';
 
 
-const Shortener = ({ setAlert }) => {
+const Shortener = ({ shortUserURL, URLDataArrObj }) => {
   const [fullURLInputData, setfullURLInputData] = useState({
     fullURL: '',
   });
+
+  const func = () => {
+    sessionStorage.setItem('links', JSON.stringify(URLDataArrObj));
+  };
+
+  useEffect(() => {
+    return func()});
+
+  // const id = uuidv4();
 
   const handleChange = (event) => {
     setfullURLInputData({ ...fullURLInputData, fullURL: event.target.value });
   };
 
   const handleSubmit = async (event) => {
+<<<<<<< HEAD
     try {
       event.preventDefault();
 
@@ -39,20 +49,42 @@ const Shortener = ({ setAlert }) => {
 
       errors.forEach((el) => setAlert(el.msg, 'error'));
     }
+=======
+    const eventTarget = event;
+
+    eventTarget.preventDefault();
+
+    shortUserURL(fullURLInputData.fullURL);
+
+    eventTarget.target.parentElement.querySelector('input').value = '';
+>>>>>>> f770d10fb1dc34b79ffb93bec9719d7e08c23130
   };
 
   return (
     <>
       <ShortenerP onChange={handleChange} onSubmit={handleSubmit} />
+      {URLDataArrObj.map((obj) => (
+        <ShortListP
+          key={uuidv4()}
+          fullURL={obj.fullURL}
+          shortenURL={obj.shortenURL}
+        />
+      ))}
     </>
 
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setAlert(msg, type) {
-    dispatch(alert(msg, type));
+
+  shortUserURL(fullURL) {
+    dispatch(shortURL(fullURL));
   },
 });
 
-export default connect(null, mapDispatchToProps)(Shortener);
+const mapStateToProps = (store) => ({
+  URLDataArrObj: store.URLDataArrObj,
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shortener);

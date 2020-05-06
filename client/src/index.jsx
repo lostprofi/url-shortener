@@ -3,17 +3,15 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import { authr } from './actions/auth';
 import './index.css';
 import App from './App';
-import Cookies from 'js-cookie';
+import { author } from './actions/auth';
 
 const Index = () => {
-  useEffect(() => {
-    if (Cookies.get('userToken')) {
-      store.dispatch(authr());
-    }
-  }, []);
+  useEffect(() => {    
+    store.dispatch(author());
+  });
+
   return (
     <React.StrictMode>
       <Provider store={store}>
@@ -24,6 +22,7 @@ const Index = () => {
     </React.StrictMode>
   );
 };
+
 
 ReactDOM.render(
   <Index />,

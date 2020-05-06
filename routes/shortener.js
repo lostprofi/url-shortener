@@ -1,5 +1,7 @@
 const express = require('express');
 const { Base64 } = require('js-base64');
+const { validationResult, check } = require('express-validator');
+
 
 const router = express.Router();
 const tokenMdlware = require('../middlewares/tokenMiddleware');
@@ -10,12 +12,19 @@ const User = require('../models/User');
 // this page have a gen func for shortener
 // fullUrl=>hash string after adress (date + hour + base64)=>save on db full & short adress
 
-router.post('/', tokenMdlware, async (req, res) => {
+router.post('/', tokenMdlware, [
+  check('fullURL', 'Please enter URL').isURL(),
+], async (req, res) => {
   // info from token
   const { status } = req.user;
   const { id } = req.user;
   // info from request
   const { fullURL } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(422).json({ errors: errors.array() });
+  }
 
   try {
     if (!status === 'client') {
@@ -29,7 +38,7 @@ router.post('/', tokenMdlware, async (req, res) => {
     const isExistFullURLObj = links.find((el) => el.fullURL === fullURL);
 
     if (isExistFullURLObj) {
-      return res.status(401).json({ errors: [{ msg: 'This URL is already have shorten version' }] });
+      return res.status(200).send(isExistFullURLObj);
     }
 
     const enc = Base64.encode(fullURL);
@@ -49,7 +58,7 @@ router.post('/', tokenMdlware, async (req, res) => {
 
     await User.findByIdAndUpdate(id, { links }, { new: true });
 
-    return res.send(shortenURL);
+    return res.status(201).send(linksObj);
   } catch (err) {
     return res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }

@@ -6,7 +6,6 @@ import 'typeface-roboto';
 import { Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
 import { toolBarStyles } from './AppStyles';
 import RegForm from './components/Forms/RegForm';
 import AuthForm from './components/Forms/AuthForm';
@@ -16,7 +15,7 @@ import Shortener from './components/Shortener/Container/Shortener';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
-function App({ signOut }) {
+function App({ signOut, isAuth }) {
   const toolBarClass = toolBarStyles();
 
   const handleSignOut = () => {
@@ -27,25 +26,26 @@ function App({ signOut }) {
 
   console.log(userToken);
 
+
   return (
 
     <Grid container spacing={2} justify="center">
       <Alerts />
       <AppBar position="static" color="transparent">
         <Toolbar className={toolBarClass.root}>
-          {!userToken
+          {!isAuth
           && (
           <Button component={Link} to="/auth">
             Sign In
           </Button>
           )}
-          {!userToken
+          {!isAuth
           && (
           <Button component={Link} to="/registration">
             Sign Up
           </Button>
           )}
-          {userToken
+          {isAuth
           && (
           <Button component={Link} to="/auth" onClick={handleSignOut}>
             Sign Out
@@ -73,8 +73,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+const mapStateToProps = (store) => ({
+  isAuth: store.userAuth.isAuth,
+});
+
 App.propTypes = {
   signOut: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -19,7 +19,7 @@ const ShortList = ({ fullURL, shortenURL, onShortClick, onCopyShortURL }) => {
         <Link id="shortenURL" href={shortenURL} /*onClick={onShortClick}*/>{shortenURL}</Link>
       </Grid>
       <Grid item xs={2}>
-        <Button onClick = {onCopyShortURL}>Copy</Button>
+        <Button>Copy</Button>
       </Grid>
     </Grid>
   );
