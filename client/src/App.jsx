@@ -22,10 +22,6 @@ function App({ signOut, isAuth }) {
     signOut();
   };
 
-  const userToken = Cookies.get('userToken');
-
-  console.log(userToken);
-
 
   return (
 

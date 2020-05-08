@@ -21,12 +21,19 @@ export default (fullURL) => async (dispatch) => {
 
     const res = await axios.post('/shortener', body, config);
 
-    dispatch({
-      type: URL_SHORTENED,
-      payload: res.data,
-    });
+// check, is shorten URL is exist on listURL. IF yes -> alert, else render
+    const fromSession = JSON.parse(sessionStorage.getItem('links'));
 
-    console.log(res.data);
+    const isMatchResInSession = fromSession.find((el) => el.fullURL === res.data.fullURL);
+
+    if (isMatchResInSession) {
+      dispatch(alert('Shorten version for this URL is exist', 'error'));
+    } else {
+      dispatch({
+        type: URL_SHORTENED,
+        payload: res.data,
+      });
+    }
   } catch (err) {
     const { errors } = err.response.data;
 

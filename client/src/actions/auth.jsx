@@ -1,22 +1,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import alert from './alert';
-
 import {
   AUTH_SUCCESS, AUTH_ERROR, SIGN_OUT,
 } from './actionTypes';
-
-// authorization
-
-export const author = () => (dispatch) => {
-  const userToken = Cookies.get('userToken');
-
-  if (userToken) {
-    dispatch({
-      type: 'AUTHOR_SUCCESS',
-    });
-  }
-};
 
 // user's authentification
 
@@ -57,8 +44,6 @@ export const auth = (email, password) => async (dispatch) => {
 
 // sign out action
 
-export const signOut = () => (
-  {
-    type: SIGN_OUT,
-  }
-);
+export const signOut = () => ({
+  type: SIGN_OUT,
+});

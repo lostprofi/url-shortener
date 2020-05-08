@@ -5,11 +5,11 @@ import { Provider } from 'react-redux';
 import store from './store';
 import './index.css';
 import App from './App';
-import { author } from './actions/auth';
+import resetPage from './actions/resetPage';
 
 const Index = () => {
   useEffect(() => {    
-    store.dispatch(author());
+    store.dispatch(resetPage());
   });
 
   return (
