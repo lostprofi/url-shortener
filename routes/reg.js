@@ -32,7 +32,7 @@ async (req, res) => {
     }
 
     user = new User({
-      name, email, password, links,
+      name, email, _password: password, links,
     });
 
     const salt = await bcrypt.genSalt(10);

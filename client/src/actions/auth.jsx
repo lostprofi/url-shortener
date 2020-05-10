@@ -1,51 +1,13 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import alert from './alert';
 import {
-  AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR,
+  AUTH_SUCCESS, AUTH_ERROR, SIGN_OUT,
 } from './actionTypes';
-
-// authorazation user's and get their information
-const authr = () => async (dispatch) => {
-  try {
-    const { userToken } = localStorage;
-
-    if (userToken) {
-      const config = {
-        headers: {
-          'Content-type': 'application/json',
-          'x-auth-token': userToken,
-        },
-      };
-
-      const res = await axios.get('/auth', config);
-
-      dispatch({
-        type: AUTHR_SUCCESS,
-        payload: res.data,
-      });
-
-    } else {
-      dispatch({
-        type: AUTHR_ERROR,
-      });
-      throw new Error('User is not authoraized');
-    }
-  } catch (err) {
-    const { errors } = err.response.data;
-
-    dispatch({
-      type: AUTHR_ERROR,
-    });
-
-    errors.forEach((el) => {
-      dispatch(alert(el.msg, 'error'));
-    });
-  }
-};
 
 // user's authentification
 
-const authn = (email, password) => async (dispatch) => {
+export const auth = (email, password) => async (dispatch) => {
   const userData = {
     email,
     password,
@@ -62,18 +24,16 @@ const authn = (email, password) => async (dispatch) => {
     const res = await axios.post('/auth', body, config);
 
     dispatch({
-      type: AUTHN_SUCCESS,
+      type: AUTH_SUCCESS,
       payload: {
         token: res.data.token,
       },
     });
-
-    dispatch(authr());
   } catch (err) {
     const { errors } = err.response.data;
 
     dispatch({
-      type: AUTHN_ERROR,
+      type: AUTH_ERROR,
     });
 
     errors.forEach((el) => {
@@ -82,4 +42,8 @@ const authn = (email, password) => async (dispatch) => {
   }
 };
 
-export default authn;
+// sign out action
+
+export const signOut = () => ({
+  type: SIGN_OUT,
+});

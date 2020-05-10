@@ -1,30 +1,35 @@
+import Cookies from 'js-cookie';
 import {
-  AUTHN_SUCCESS, AUTHN_ERROR, AUTHR_SUCCESS, AUTHR_ERROR,
+  AUTH_SUCCESS, AUTH_ERROR, SIGN_OUT, AUTHOR_SUCCESS
 } from '../actions/actionTypes';
 
+
 const initialState = {
-  isAuthenticated: false,
-  userLoaded: false,
-  isAuthorizated: false,
-  user: null,
+  isAuth: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case AUTHN_SUCCESS:
 
-      localStorage.setItem('userToken', action.payload.token);
-      return { ...state, isAuthenticated: true };
+    case AUTH_SUCCESS:
 
-    case AUTHN_ERROR: return { ...state, isAuthenticated: false };
-    case AUTHR_SUCCESS:
+      sessionStorage.setItem('links', JSON.stringify([]));
+      // localStorage.setItem('userToken', action.payload.token);
+      Cookies.set('userToken', `${action.payload.token}`, { expires: 7, path: '/', samesite: 'strict' });
+      return { ...state, isAuth: true };
+
+    case AUTHOR_SUCCESS:
+      return { ...state, isAuth: true };
+
+    case AUTH_ERROR: return { ...state, isAuth: false };
+
+    case SIGN_OUT:
+      Cookies.remove('userToken', '/');
+      sessionStorage.clear('links');
       return {
-        ...state, isAuthorizated: true, userLoaded: true, user: action.payload,
+        ...state, isAuth: false,
       };
-    case AUTHR_ERROR:
-      return {
-        ...state, isAuthorizated: false,
-      };
+
     default: return state;
   }
 };

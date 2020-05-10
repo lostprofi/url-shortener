@@ -5,8 +5,8 @@ const router = express.Router();
 // @Dashboard route
 // on this page we are searching user on db & res send userName
 
-router.get('/dashboard', (req, res) => {
-  res.send('Dashboard page');
+router.get('/', (req, res) => {
+  res.send('dashboard page');
 });
 
 module.exports = router;
