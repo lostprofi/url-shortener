@@ -34,6 +34,7 @@ router.post('/', tokenMdlware, [
     const user = await User.findById(id);
 
     const { links } = user;
+  
 
     const isExistFullURLObj = links.find((el) => el.fullURL === fullURL);
 
@@ -47,18 +48,20 @@ router.post('/', tokenMdlware, [
 
     const [second, hour, day] = [date.getSeconds(), date.getHours(), date.getDay()];
 
-    const shortenURL = `https://msurl/${enc.substr(11, 4)}${day}${hour}${second}`;
+    const shortenURL = `http://localhost:5000/redir?U=${enc.substr(11, 1)}${day}${hour}${second}`;
 
-    const linksObj = {
+    const linksData = {
       fullURL,
       shortenURL,
+      title: '',
+      tags: [],
     };
 
-    links.push(linksObj);
+    links.push(linksData);
 
     await User.findByIdAndUpdate(id, { links }, { new: true });
 
-    return res.status(201).send(linksObj);
+    return res.status(201).send(linksData);
   } catch (err) {
     return res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }

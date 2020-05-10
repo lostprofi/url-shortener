@@ -16,7 +16,7 @@ const Shortener = ({ shortUserURL, URLDataArrObj }) => {
     setfullURLInputData({ ...fullURLInputData, fullURL: event.target.value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     const eventTarget = event;
 
     eventTarget.preventDefault();
@@ -24,6 +24,11 @@ const Shortener = ({ shortUserURL, URLDataArrObj }) => {
     shortUserURL(fullURLInputData.fullURL);
 
     eventTarget.target.parentElement.querySelector('input').value = '';
+  };
+
+  const handleClickCopy = async (event) => {
+    const copyData = event.target.parentElement.parentElement.previousElementSibling.querySelector('#shortenURL');
+    await navigator.clipboard.writeText(copyData);
   };
 
   return (
@@ -34,6 +39,7 @@ const Shortener = ({ shortUserURL, URLDataArrObj }) => {
           key={uuidv4()}
           fullURL={obj.fullURL}
           shortenURL={obj.shortenURL}
+          onClickCopy={handleClickCopy}
         />
       ))}
     </>

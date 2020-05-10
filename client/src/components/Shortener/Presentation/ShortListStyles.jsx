@@ -20,6 +20,7 @@ const shortListStyles = makeStyles({
 
     '& div:last-child button': {
       backgroundColor: 'rgb(164, 219, 245)',
+      marginLeft: 10,
 
       '&:hover': {
         backgroundColor: 'rgba(0, 0, 0, 0.23)',

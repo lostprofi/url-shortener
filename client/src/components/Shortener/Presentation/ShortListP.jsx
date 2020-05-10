@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ShortListStyles from './ShortListStyles';
 
 
-const ShortList = ({ fullURL, shortenURL, onShortClick, onCopyShortURL }) => {
+const ShortList = ({ fullURL, shortenURL, onShortClick, onCopyShortURL, onClickCopy }) => {
   const classes = ShortListStyles();
 
 
@@ -16,10 +16,11 @@ const ShortList = ({ fullURL, shortenURL, onShortClick, onCopyShortURL }) => {
         <TextField value={fullURL} fullWidth type="string" multiline />
       </Grid>
       <Grid item xs={3}>
-        <Link id="shortenURL" href={shortenURL} /*onClick={onShortClick}*/>{shortenURL}</Link>
+        <Link id="shortenURL" href={shortenURL}>{shortenURL}</Link>
       </Grid>
       <Grid item xs={2}>
-        <Button>Copy</Button>
+        <Button>Edit</Button>
+        <Button onClick={onClickCopy}>Copy</Button>
       </Grid>
     </Grid>
   );
