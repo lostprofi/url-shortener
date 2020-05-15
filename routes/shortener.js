@@ -50,18 +50,18 @@ router.post('/', tokenMdlware, [
 
     const shortenURL = `http://localhost:5000/redir?U=${enc.substr(11, 1)}${day}${hour}${second}`;
 
-    const linksData = {
+    const linksObj = {
       fullURL,
       shortenURL,
-      title: '',
+      description: '',
       tags: [],
     };
 
-    links.push(linksData);
+    links.push(linksObj);
 
     await User.findByIdAndUpdate(id, { links }, { new: true });
 
-    return res.status(201).send(linksData);
+    return res.status(201).send(linksObj);
   } catch (err) {
     return res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }

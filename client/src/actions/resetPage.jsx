@@ -7,7 +7,7 @@ import {
 
 // authorization
 
-export default () => (dispatch) => {
+export const resetInitUrldataObj = () => (dispatch) => {
   const userToken = Cookies.get('userToken');
 
   if (userToken) {
@@ -20,4 +20,14 @@ export default () => (dispatch) => {
       payload: JSON.parse(sessionStorage.getItem('links')),
     });
   }
+};
+
+export const resetSearchByTag = () => (dispatch) => {
+  const findByTagsURL = JSON.parse(sessionStorage.getItem('findByTagURL'));
+
+  dispatch({
+    type: 'RELOAD_SEARCHING_BY_TAG',
+    payload: findByTagsURL,
+  })
+
 };

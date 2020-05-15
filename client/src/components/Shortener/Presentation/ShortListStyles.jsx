@@ -10,15 +10,15 @@ const shortListStyles = makeStyles({
     alignItems: 'center',
     marginTop: 20,
 
-    '& div:last-child': {
-      textAlign: 'end',
-    },
-
     '& div:nth-child(2)': {
       textAlign: 'center',
     },
 
-    '& div:last-child button': {
+    '& div:nth-child(3)': {
+      textAlign: 'end',
+    },
+
+    '& div:nth-child(3) button': {
       backgroundColor: 'rgb(164, 219, 245)',
       marginLeft: 10,
 

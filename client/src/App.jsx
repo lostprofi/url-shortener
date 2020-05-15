@@ -3,7 +3,7 @@ import {
   Grid, AppBar, Button, Toolbar,
 } from '@material-ui/core';
 import 'typeface-roboto';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toolBarStyles } from './AppStyles';
@@ -13,6 +13,7 @@ import Alerts from './components/Alert/Alert';
 import { signOut as signOutAction } from './actions/auth';
 import Shortener from './components/Shortener/Container/Shortener';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import searchByTagResults from './components/SearchByTagResults/SearchByTagResults';
 
 
 function App({ signOut, isAuth }) {
@@ -50,13 +51,16 @@ function App({ signOut, isAuth }) {
         </Toolbar>
       </AppBar>
       <Grid item container xs={8}>
-        <Route path="/registration">
-          <RegForm />
-        </Route>
-        <Route path="/auth">
-          <AuthForm />
-        </Route>
-        <PrivateRoute path="/dashboard" component={Shortener} />
+        <Switch>
+          <Route path="/registration">
+            <RegForm />
+          </Route>
+          <Route path="/auth">
+            <AuthForm />
+          </Route>
+          <PrivateRoute path="/dashboard" component={Shortener} />
+          <Route path="/searchByTag" component={searchByTagResults} />
+        </Switch>
       </Grid>
     </Grid>
 

@@ -6,3 +6,7 @@ export const SIGN_OUT = 'SIGN_OUT';
 export const URL_SHORTENED = 'URL_SHORTENED';
 export const AUTHOR_SUCCESS = 'AUTHOR_SUCCESS'
 export const RESET_INIT_URL_DATA_OBJ = 'RESET_INIT_URL_DATA_OBJ';
+export const DESC_ADDED = 'DESC_ADDED';
+export const TAG_ADDED = 'TAG_ADDED';
+export const SEARCHING_BY_TAG = 'SEARCHED_BY_TAG';
+export const CLEAR_SEARCH_TAG_URL = 'CLEAR_SEARCH_TAG_URL';
