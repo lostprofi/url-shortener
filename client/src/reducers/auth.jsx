@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import {
-  AUTH_SUCCESS, AUTH_ERROR, SIGN_OUT, AUTHOR_SUCCESS
+  AUTH_SUCCESS, AUTH_ERROR, SIGN_OUT, AUTHOR_SUCCESS,
 } from '../actions/actionTypes';
 
 
@@ -10,7 +10,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-
     case AUTH_SUCCESS:
 
       sessionStorage.setItem('links', JSON.stringify([]));

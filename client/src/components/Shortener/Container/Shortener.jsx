@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,13 +8,13 @@ import shortURL from '../../../actions/shortURL';
 import ShortListP from '../Presentation/ShortListP';
 import searchByTag from '../../../actions/srchByTag';
 
-const Shortener = ({ shortUserURL, URLDataArrObj, searchingByTag }) => {
+const Shortener = ({ shortUserURL, currentURLDataArrObj, searchingByTag }) => {
   const [fullURLInputData, setfullURLInputData] = useState({
     fullURL: '',
   }, []);
 
   const history = useHistory();
-  
+
   const handleChange = (event) => {
     setfullURLInputData({ ...fullURLInputData, fullURL: event.target.value });
   };
@@ -43,7 +43,7 @@ const Shortener = ({ shortUserURL, URLDataArrObj, searchingByTag }) => {
   return (
     <>
       <ShortenerP onChange={handleChange} onSubmit={handleSubmit} />
-      {URLDataArrObj.map((obj) => (
+      {currentURLDataArrObj.map((obj) => (
         <>
           <ShortListP
             key={uuidv4()}
@@ -70,13 +70,16 @@ const mapDispatchToProps = (dispatch) => ({
   searchingByTag(tagName) {
     dispatch(searchByTag(tagName));
   },
-
-
 });
 
 const mapStateToProps = (store) => ({
-  URLDataArrObj: store.URLDataArrObj,
+  currentURLDataArrObj: store.currentURLDataArrObj,
 });
 
+Shortener.propTypes = {
+  shortUserURL: PropTypes.func.isRequired,
+  searchingByTag: PropTypes.func.isRequired,
+  currentURLDataArrObj: PropTypes.arrayOf.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shortener);

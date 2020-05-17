@@ -34,7 +34,7 @@ router.post('/', tokenMdlware, [
     const user = await User.findById(id);
 
     const { links } = user;
-  
+
 
     const isExistFullURLObj = links.find((el) => el.fullURL === fullURL);
 
@@ -55,6 +55,7 @@ router.post('/', tokenMdlware, [
       shortenURL,
       description: '',
       tags: [],
+      numOfTrans: null,
     };
 
     links.push(linksObj);
@@ -62,6 +63,19 @@ router.post('/', tokenMdlware, [
     await User.findByIdAndUpdate(id, { links }, { new: true });
 
     return res.status(201).send(linksObj);
+  } catch (err) {
+    return res.status(500).json({ errors: [{ msg: 'Server error' }] });
+  }
+});
+
+router.get('/', tokenMdlware, async (req, res) => {
+  const { id } = req.user;
+  try {
+    const user = await User.findById(id);
+
+    const URLDataArr = user.links;
+
+    return res.status(201).send(URLDataArr);
   } catch (err) {
     return res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }

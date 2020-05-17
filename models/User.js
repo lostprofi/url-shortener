@@ -18,10 +18,10 @@ const userSchema = new Schema({
   },
   links: {
     type: [Object],
-  }
+  },
 });
 
-//User model
+// User model
 
 const User = mongoose.model('User', userSchema);
 

@@ -49,7 +49,7 @@ router.post('/',
         if (err) {
           throw err;
         }
-        res.json({ token });
+        return res.json({ token });
       }, { expiresIn: '80d' });
     } catch (err) {
       return res.status(500).send('Server error');

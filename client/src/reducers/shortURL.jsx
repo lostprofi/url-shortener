@@ -10,8 +10,13 @@ export default (state = initialState, action) => {
       sessionStorage.setItem('links', JSON.stringify([...state, action.payload]));
       return [action.payload, ...state];
 
-    case RESET_INIT_URL_DATA_OBJ:
+    case RESET_INIT_URL_DATA_OBJ: {
+      if (!JSON.parse(sessionStorage.getItem('userToken'))) {
+        return [...state];
+      }
       return [...action.payload, ...state];
+    }
+
 
     case SIGN_OUT:
       return [];
@@ -21,7 +26,9 @@ export default (state = initialState, action) => {
       matchObjSt.description = action.payload.description;
 
       const linksObjArrStore = JSON.parse(sessionStorage.getItem('links'));
-      const matchObjStore = linksObjArrStore.find((el) => el.shortenURL === action.payload.shortenURL);
+      const matchObjStore = linksObjArrStore.find(
+        (el) => el.shortenURL === action.payload.shortenURL,
+      );
       matchObjStore.description = action.payload.description;
       sessionStorage.setItem('links', JSON.stringify(linksObjArrStore));
 
@@ -36,7 +43,9 @@ export default (state = initialState, action) => {
       matchObjSt.tags = [...tagsArr, action.payload.tag];
 
       const linksObjArrStore = JSON.parse(sessionStorage.getItem('links'));
-      const matchObjStore = linksObjArrStore.find((el) => el.shortenURL === action.payload.shortenURL);
+      const matchObjStore = linksObjArrStore.find(
+        (el) => el.shortenURL === action.payload.shortenURL,
+      );
 
       const storeTagsArr = matchObjStore.tags;
 
@@ -46,8 +55,6 @@ export default (state = initialState, action) => {
 
       return [...state];
     }
-
-
 
 
     default:

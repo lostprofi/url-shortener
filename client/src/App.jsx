@@ -6,7 +6,7 @@ import 'typeface-roboto';
 import { Route, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toolBarStyles } from './AppStyles';
+import toolBarStyles from './AppStyles';
 import RegForm from './components/Forms/RegForm';
 import AuthForm from './components/Forms/AuthForm';
 import Alerts from './components/Alert/Alert';
@@ -14,7 +14,7 @@ import { signOut as signOutAction } from './actions/auth';
 import Shortener from './components/Shortener/Container/Shortener';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import searchByTagResults from './components/SearchByTagResults/SearchByTagResults';
-
+import Statistic from './components/Statistic/Statistic';
 
 function App({ signOut, isAuth }) {
   const toolBarClass = toolBarStyles();
@@ -22,7 +22,6 @@ function App({ signOut, isAuth }) {
   const handleSignOut = () => {
     signOut();
   };
-
 
   return (
 
@@ -44,9 +43,17 @@ function App({ signOut, isAuth }) {
           )}
           {isAuth
           && (
-          <Button component={Link} to="/auth" onClick={handleSignOut}>
-            Sign Out
-          </Button>
+            <>
+              <Button component={Link} to="/dashboard">
+                Home
+              </Button>
+              <Button component={Link} to="/statistic">
+                Statistic
+              </Button>
+              <Button component={Link} to="/auth" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </>
           )}
         </Toolbar>
       </AppBar>
@@ -60,6 +67,7 @@ function App({ signOut, isAuth }) {
           </Route>
           <PrivateRoute path="/dashboard" component={Shortener} />
           <Route path="/searchByTag" component={searchByTagResults} />
+          <Route path="/statistic" component={Statistic} />
         </Switch>
       </Grid>
     </Grid>

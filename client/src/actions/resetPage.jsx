@@ -1,11 +1,8 @@
-
 import Cookies from 'js-cookie';
 
 import {
-  AUTHOR_SUCCESS, RESET_INIT_URL_DATA_OBJ,
+  AUTHOR_SUCCESS, RESET_INIT_URL_DATA_OBJ, RELOAD_SEARCHING_BY_TAG,
 } from './actionTypes';
-
-// authorization
 
 export const resetInitUrldataObj = () => (dispatch) => {
   const userToken = Cookies.get('userToken');
@@ -26,8 +23,7 @@ export const resetSearchByTag = () => (dispatch) => {
   const findByTagsURL = JSON.parse(sessionStorage.getItem('findByTagURL'));
 
   dispatch({
-    type: 'RELOAD_SEARCHING_BY_TAG',
+    type: RELOAD_SEARCHING_BY_TAG,
     payload: findByTagsURL,
-  })
-
+  });
 };

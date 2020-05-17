@@ -25,5 +25,4 @@ ShortenerP.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-
 export default ShortenerP;

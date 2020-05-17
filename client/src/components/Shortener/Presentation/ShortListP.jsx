@@ -7,12 +7,10 @@ import { v4 as uuidv4 } from 'uuid';
 import ShortListStyles from './ShortListStyles';
 import SimpleModal from '../../Modal/Modal';
 
-
 const ShortList = ({
-  fullURL, shortenURL, onClickCopy, description, tags, onTagClick
+  fullURL, shortenURL, onClickCopy, description, tags, onTagClick,
 }) => {
   const classes = ShortListStyles();
-
 
   return (
     <Grid container item className={classes.root} xs={12}>
@@ -20,7 +18,7 @@ const ShortList = ({
         <TextField value={fullURL} fullWidth type="string" multiline />
       </Grid>
       <Grid item xs={3}>
-        <Link id="shortenURL" href={shortenURL}>{shortenURL}</Link>
+        <Link id="shortenURL" href={shortenURL} target="blank">{shortenURL}</Link>
       </Grid>
       <Grid item xs={2}>
         <SimpleModal />
@@ -32,14 +30,12 @@ const ShortList = ({
       <Grid item xs={12}>
         {
         tags.map((el) => (
-          <Button key={uuidv4()} id="tag" /*href={`http://localhost:5000/addTag?t=${el}`}*/ onClick={onTagClick}>
+          <Button key={uuidv4()} id="tag" onClick={onTagClick}>
             {el}
           </Button>
         ))
       }
       </Grid>
-
-
     </Grid>
   );
 };
@@ -49,6 +45,8 @@ ShortList.propTypes = {
   shortenURL: PropTypes.string.isRequired,
   onClickCopy: PropTypes.func.isRequired,
   description: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf.isRequired,
+  onTagClick: PropTypes.func.isRequired,
 };
 
 export default ShortList;

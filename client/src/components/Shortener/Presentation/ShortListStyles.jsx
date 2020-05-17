@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const shortListStyles = makeStyles({
   root: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

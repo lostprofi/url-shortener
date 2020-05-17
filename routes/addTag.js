@@ -36,19 +36,11 @@ router.get('/', async (req, res) => {
 
   const matchUsersArr = await User.where('links.tags', tag);
 
-  // const usersLinksArr = matchUsersArr.map((el) => el.links.find((el) => el.tags.find((el) => el === tag)));
-
-  // const matchFullLinksArr = usersLinksArr.map((el) => el.shortenURL);
-
   const matchFullLinksArr = matchUsersArr.map((el) => el.links.map((el) => {
     if (el.tags.find((el) => el === tag)) {
       return el.shortenURL;
     }
   }));
-
-
-  
-
 
   return res.send(matchFullLinksArr);
 });

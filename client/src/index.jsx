@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import store from './store';
 import './index.css';
 import App from './App';
-import {resetInitUrldataObj} from './actions/resetPage';
+import { resetInitUrldataObj } from './actions/resetPage';
 
 const Index = () => {
-  useEffect(() => {    
+  useEffect(() => {
     store.dispatch(resetInitUrldataObj());
   });
 

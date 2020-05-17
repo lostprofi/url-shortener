@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import alert from './alert';
 import {
   AUTH_SUCCESS, AUTH_ERROR, SIGN_OUT,

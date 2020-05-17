@@ -14,6 +14,15 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 
+// solution for CORS
+
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', ['Content-Type', 'x-auth-token']);
+  next();
+});
+
 app.use('/auth', require('./routes/auth'));
 app.use('/registration', require('./routes/reg'));
 app.use('/dashboard', require('./routes/dashboard'));

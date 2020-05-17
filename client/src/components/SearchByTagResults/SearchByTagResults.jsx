@@ -5,37 +5,32 @@ import {
   Grid, Link, Typography, Button,
 } from '@material-ui/core';
 import { useLocation, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from './SeacrhByTagStyles';
 import { resetSearchByTag } from '../../actions/resetPage';
 
-
 const useQuery = () => new URLSearchParams(useLocation().search);
 
-
 const SearchByTagRes = ({ findLinksArr, clear, resetPage }) => {
-
   const history = useHistory();
   const query = useQuery();
   const tagName = query.get('tagName');
 
-  window.onpopstate = function () {
+  window.onpopstate = () => {
     history.replace('/dashboard');
     clear();
   };
 
-  useEffect(()=>{
-    resetPage()
-  }, [])
+  useEffect(() => {
+    resetPage();
+  }, []);
 
   const classes = styles();
-
-  
 
   const handleClickCopy = async (event) => {
     const copyData = event.target.parentElement.parentElement.previousElementSibling.querySelector('#shortenURL');
     await navigator.clipboard.writeText(copyData);
   };
-
 
   return (
     <Grid container item xs={12}>
@@ -91,5 +86,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
 
 });
+
+SearchByTagRes.propTypes = {
+  findLinksArr: PropTypes.arrayOf.isRequired,
+  clear: PropTypes.func.isRequired,
+  resetPage: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchByTagRes);

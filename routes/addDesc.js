@@ -25,9 +25,9 @@ router.post('/', tokenMdlware, async (req, res) => {
 
     await User.findByIdAndUpdate(id, { links }, { new: true });
 
-    res.status(200).json('Description added');
+    return res.status(200).json('Description added');
   } catch (err) {
-    res.status(500).json({ errors: [{ msg: 'Server error' }] });
+    return res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }
 });
 

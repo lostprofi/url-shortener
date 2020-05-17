@@ -1,8 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 
-
-export const toolBarStyles = makeStyles({
+const toolBarStyles = makeStyles({
   root: {
     justifyContent: 'flex-end',
   },
 });
+
+export default toolBarStyles;

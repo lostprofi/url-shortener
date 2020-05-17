@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import alert from './alert';
 import { URL_SHORTENED } from './actionTypes';
 
-
 export default (fullURL) => async (dispatch) => {
   try {
     const userToken = Cookies.get('userToken');
@@ -21,7 +20,7 @@ export default (fullURL) => async (dispatch) => {
 
     const res = await axios.post('/shortener', body, config);
 
-// check, is shorten URL is exist on listURL. IF yes -> alert, else render
+    // check, is shorten URL is exist on listURL. IF yes -> alert, else render
     const fromSession = JSON.parse(sessionStorage.getItem('links'));
 
     const isMatchResInSession = fromSession.find((el) => el.fullURL === res.data.fullURL);

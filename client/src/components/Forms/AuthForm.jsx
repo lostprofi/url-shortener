@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import formStyle from './formStyles';
 // action
 import alertAction from '../../actions/alert';
 import { auth } from '../../actions/auth';
-import Cookies from 'js-cookie';
 
 const AuthForm = ({ isAuth, authUser }) => {
   const formClass = formStyle();
@@ -28,7 +28,6 @@ const AuthForm = ({ isAuth, authUser }) => {
 
     authUser(email, password);
   };
-
 
   return (
     <>
@@ -53,13 +52,15 @@ const mapDispatchToProps = (dispatch) => ({
   authUser(email, password) {
     dispatch(auth(email, password));
   },
-
-
 });
 
 const mapStateToProps = (store) => ({
   isAuth: store.userAuth.isAuth,
 });
 
+AuthForm.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+  authUser: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);

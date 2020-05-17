@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import formStyle from './formStyles';
 import regAction from '../../actions/registration';
 import alertAction from '../../actions/alert';
 
-const RegForm = (props) => {
+const RegForm = ({ setAlert, regUser }) => {
   const formClass = formStyle();
-  const prop = props;
-
+  const history = useHistory();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -30,9 +31,10 @@ const RegForm = (props) => {
     const { password2 } = formData;
 
     if (password1 !== password2) {
-      prop.setAlert('Entered passwords do not match', 'error');
+      setAlert('Entered passwords do not match', 'error');
     } else {
-      prop.regUser(name, email, password1);
+      regUser(name, email, password1);
+      history.push('/auth');
     }
   };
 
@@ -56,5 +58,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
 
 });
+
+RegForm.propTypes = {
+  regUser: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(RegForm);

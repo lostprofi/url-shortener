@@ -3,9 +3,10 @@ import {
   Modal, Grid, TextField, Button,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import modalStyles from './ModalStyles';
 import addDesc from '../../actions/addDesc';
-import addTag from '../../actions/addTag';
+import addTagAction from '../../actions/addTag';
 
 const SimpleModal = ({ setDesc, addTag }) => {
   const classes = modalStyles();
@@ -51,7 +52,7 @@ const SimpleModal = ({ setDesc, addTag }) => {
   };
 
   const body = (
-    <div className={classes.paper} >
+    <div className={classes.paper}>
       <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmitDesc}>
         <Grid container>
 
@@ -118,9 +119,13 @@ const mapDisatchToProps = (dispatch) => ({
     dispatch(addDesc(shortenURL, description));
   },
   addTag(shortenURL, tag) {
-    dispatch(addTag(shortenURL, tag));
+    dispatch(addTagAction(shortenURL, tag));
   },
-
 });
+
+SimpleModal.propTypes = {
+  setDesc: PropTypes.func.isRequired,
+  addTag: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDisatchToProps)(SimpleModal);
